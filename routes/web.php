@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\indexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +17,9 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
+Route::get('/altaFarm',[indexController::class,"index"]);
+Route::post('/altaFarm',function (){
+   $msg= request('farmaco');
+   return $msg;
+});
 require __DIR__.'/auth.php';

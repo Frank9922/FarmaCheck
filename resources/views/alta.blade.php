@@ -6,13 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class=" btn btn-primary">boton</div>
-    <h1>sss</h1>
-    <form method="POST" action="/altaFarm">
-    @csrf
-    @method('POST')
     
-    <label for="farmaco" class="form-label">Farmaco</label><input type="text" name="" id="farmaco" placeholder="Ingrese nombre de Farmaco">
-</form>
+    <h1 class="m-1">Alta de Farmaco</h1>
+    
+    <div class="container">
+     <form method="POST">
+        @csrf
+        <label for="farmaco" class="form-label">Farmaco</label>
+        <input type="text" class="form-control my-2" name="farmaco" id="farmaco" placeholder="Ingrese nombre de Farmaco">
+        <input type="submit" value="Cargar" class="btn btn-primary">
+        </form>
+
+    </div>
 </body>
 </html>
