@@ -17,4 +17,9 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
+Route::get('/altaFarm', function () {
+    return view('alta');
+});
 require __DIR__.'/auth.php';
+
+
