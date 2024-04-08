@@ -13,7 +13,7 @@
      <form method="POST">
         @csrf
         <label for="farmaco" class="form-label">Farmaco</label>
-        <input type="text" class="form-control my-2" name="farmaco" id="farmaco" placeholder="Ingrese nombre de Farmaco">
+        <input type="text" class="form-control my-2" name="name" id="farmaco" placeholder="Ingrese nombre de Farmaco">
         <input type="submit" value="Cargar" class="btn btn-primary">
         </form>
 

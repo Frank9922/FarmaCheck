@@ -18,8 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/altaFarm',[indexController::class,"index"]);
-Route::post('/altaFarm',function (){
-   $msg= request('farmaco');
-   return $msg;
-});
+// Route::post('/altaFarm',function (){
+//    $msg= request('farmaco');
+//    return $msg;
+// });
+Route::post('/altaFarm',[indexController::class,"store"]);
 require __DIR__.'/auth.php';
