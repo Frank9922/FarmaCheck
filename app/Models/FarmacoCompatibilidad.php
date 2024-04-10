@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class FarmacoCompatibilidad extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'first_farmaco',
+        'second_farmaco',
+        'id_compatibilidad'
+    ];
 }

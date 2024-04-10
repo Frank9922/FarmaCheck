@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\FarmaCompatibilidad;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\indexController;
+use App\Models\FarmacoCompatibilidad;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +27,7 @@ Route::get('/altaFarm',[indexController::class,"index"]);
 // });
 Route::post('/altaFarm',[indexController::class,"store"]);
 require __DIR__.'/auth.php';
+
+
+Route::get('/compatibilidad', [FarmaCompatibilidad::class, 'index']);
+Route::post('/compatibilidad', [FarmaCompatibilidad::class, 'store']);
