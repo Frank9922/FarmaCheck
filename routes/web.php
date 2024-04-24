@@ -30,4 +30,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/compatibilidad', [FarmaCompatibilidad::class, 'index']);
+Route::get('/check', [FarmaCompatibilidad::class, 'checkindex']);
+
 Route::post('/compatibilidad', [FarmaCompatibilidad::class, 'store']);
+Route::post('/check', [FarmaCompatibilidad::class, 'compatibility']);

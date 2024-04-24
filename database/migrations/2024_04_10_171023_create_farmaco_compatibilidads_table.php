@@ -27,6 +27,10 @@ return new class extends Migration
             $table->foreign('second_farmaco')
                         ->references('id')->on('farmacos');
 
+
+            $table->unique(['first_farmaco', 'second_farmaco'], 'unique_farmaco_combination');
+
+
             $table->foreign('id_compatibilidad')
                         ->references('id')->on('compatibilidads');
 

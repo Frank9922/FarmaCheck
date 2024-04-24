@@ -22,11 +22,31 @@ class CompatibilitySeeder extends Seeder
             'Incierta'
         ];
 
-        foreach($compatibility as $compatibilidad) {
             Compatibilidad::create([
-                'name' => $compatibilidad
+                'name' => 'Incompatible',
+                'colors' => 'danger'
             ]);
-        }
+
+            Compatibilidad::create([
+                'name' => 'Compatible',
+                'colors' => 'success'
+            ]);
+
+            Compatibilidad::create([
+                'name' => 'No probada',
+                'colors' => 'info'
+            ]);
+
+            Compatibilidad::create([
+                'name' => 'Variable',
+                'colors' => 'warning'
+            ]);
+
+            Compatibilidad::create([
+                'name' => 'Incierta',
+                'colors' => 'secondary'
+            ]);
+
 
     }
 }
