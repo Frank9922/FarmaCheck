@@ -9,10 +9,13 @@
 </head>
 <body>
     <div class="container mt-4 ">
-        <form action="{{ url('/compatibilidad') }}" method="POST" class="bg-success-subtle p-4 border border-success rounded-2" style="--bs-border-opacity: .5;">
+        <form action="{{ url('/compatibilidad') }}" method="POST" class="bg-dark-subtle p-4 border border-dark rounded-2" style="--bs-border-opacity: .5;">
             @csrf
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Farmaco 1</label>
+              @if ($errors->has('first_farmaco'))
+    <span class="text-danger">{{ $errors->first('first_farmaco') }}</span>
+@endif
               <select class="form-select" name="first_farmaco">
                 @foreach ($farmacos as $farmaco)
                     <option value="{{$farmaco->id}}">{{$farmaco->name}}</option>
@@ -31,14 +34,14 @@
                 <label class="form-label">Compatibilidad</label>
                 @foreach ($compatibilidads as $compatibilidad)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="compatibilidad" value="{{ $compatibilidad->id }}" id="{{ $compatibilidad->id }}">
+                        <input class="form-check-input" type="checkbox" name="id_compatibilidad" value="{{ $compatibilidad->id }}" id="{{ $compatibilidad->id }}">
                         <label class="form-check-label" for="compatibilidad{{ $compatibilidad->id }}">
-                            {{ $compatibilidad->name }}
+                            <span class="badge text-bg-{{$compatibilidad->colors}}">{{$compatibilidad->name}}</span>
                         </label>
                     </div>
     @endforeach
             </div>
-            <button type="submit" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-dark">Guardar</button>
           </form>
     </div>
 
