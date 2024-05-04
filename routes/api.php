@@ -25,11 +25,13 @@ Route::middleware(['auth:sanctum'])->group(function (){
 
 
     Route::get('/user', [AuthController::class, 'user']);
+    Route::get('/farmacos', [ApiController::class, 'farmacos']);
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
 
 });
-Route::get('/farmacos', [ApiController::class, 'farmacos']);
+
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
+
