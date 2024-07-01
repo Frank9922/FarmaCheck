@@ -2,83 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Services\ApiResponse;
+use App\Http\Services\AuthService;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
 
-    public function user(Request $request) {
+    public function user(Request $request) : JsonResponse {
         return $request->user();
     }
 
 
-    public function login(Request $request) {
+    public function login(LoginRequest $request) : JsonResponse {
 
-        $credentials = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string|min:6'
-        ]);
+        if(!$email = User::where('email', $request['email'])->first()) return ApiResponse::error('No esta registrado este email');
 
-        if(!Auth::attempt($credentials)) {
+        if(!Auth::attempt($request->all())) return ApiResponse::error('The email and password are invalid') ;
 
-            return response()->json([
-                'ok' => false,
-                'message' => 'The email and password are invalid'
-            ], 400);
-
-        }
-        $user = Auth::user();
-
-        $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('cookie_token', $token, 120, null, 'localhost');
-
-
-        return response()->json([
-            'ok' => true,
-            'token' => $token,
-            'message' => 'Authorization successful',
-            'user' => $user
-        ])->withCookie($cookie);
-
-
+        return AuthService::login();
 
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request) : JsonResponse {
 
-
-        if($request->user()->currentAccessToken()->delete()) return response()->json(
-            ['ok' => true,
-            'message' => 'Logout successful'],
-             200);
+        return AuthService::logout($request);
 
     }
 
 
 
-    public function create(Request $request) {
+    public function create(RegisterRequest $request) : JsonResponse {
+        
+        $user = AuthService::createUsuario($request);
 
-        $credentials = $request->validate([
-            'name'  => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:8'
-        ]);
-
-        $user = User::create([
-            'name'  => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-
-        return response()->json([
-            'message' => 'Successfully created',
-            'data' => $user
-        ]);
-
+        return ApiResponse::success(['usuario' => $user], 'Successfully created', 201);
 
     }
 }

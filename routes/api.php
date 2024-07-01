@@ -19,15 +19,17 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::post('/create', [AuthController::class, 'create']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
 
-
-
     Route::get('/user', [AuthController::class, 'user']);
-    Route::get('/farmacos', [ApiController::class, 'farmacos']);
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
+    Route::get('/farmacos', [ApiController::class, 'farmacos']);
+
+    Route::middleware(['check.trial'])->group(function () {
+        Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
+    });
 
 });
 
