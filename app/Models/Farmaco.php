@@ -11,6 +11,8 @@ class Farmaco extends Model
 
     protected $fillable=['name'];
 
+    
+
     public function compatibilidades()
     {
         return $this->belongsToMany(Compatibilidad::class, 'farmaco_compatibilidads', 'first_farmaco', 'id_compatibilidad')
