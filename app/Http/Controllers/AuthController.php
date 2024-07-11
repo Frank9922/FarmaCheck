@@ -15,7 +15,10 @@ class AuthController extends Controller
 {
 
     public function user(Request $request) : JsonResponse {
-        return $request->user();
+
+        if(!$user = $request->user()) return ApiResponse::error('Unathorized', [], 401);
+
+        return ApiResponse::success(['user' => $user], 'User is authenticated', 200);
     }
 
 
@@ -36,12 +39,11 @@ class AuthController extends Controller
     }
 
 
-
     public function create(RegisterRequest $request) : JsonResponse {
         
         $user = AuthService::createUsuario($request);
 
-        return ApiResponse::success(['usuario' => $user], 'Successfully created', 201);
+        return ApiResponse::success(['token' => $user['token'], 'usuario' => $user['user']], 'Successfully created', 201);
 
     }
 }

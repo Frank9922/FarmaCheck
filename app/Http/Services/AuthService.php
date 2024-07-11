@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Expr\Cast\Array_;
 
 class AuthService {
 
@@ -22,7 +23,7 @@ class AuthService {
 
     }
 
-    public static function createUsuario(RegisterRequest $request) : User {
+    public static function createUsuario(RegisterRequest $request) : array {
 
         $user = User::create([
             'name'  => $request->name,
@@ -31,10 +32,17 @@ class AuthService {
             'trial_ends_at' => Carbon::now()->addDays(7),
         ]);
 
+        if(!Auth::attempt($request->all())) return $user;
 
         SendEmailRegistration::dispatch($user);
 
-         return $user;
+        $user = Auth::user();
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        return ['user' => $user, 'token' => $token];
+
+         
 
     }
 
