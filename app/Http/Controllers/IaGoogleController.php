@@ -20,7 +20,7 @@ class IaGoogleController extends Controller
             [
                 'contents' => [
                     'parts' => [
-                        'text' => 'Hablame de ti'
+                        'text' => 'Cuentame a modo de informacion, la combinacion de medicamentos ACICLOVIR Y ACIDO TRANEXAMICO'
                     ]
                 ]
             ]

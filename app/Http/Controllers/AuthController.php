@@ -11,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class AuthController extends Controller
 {
 
@@ -24,12 +26,12 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request) : JsonResponse {
 
-        if(!$email = User::where('email', $request['email'])->first()) return ApiResponse::error('No esta registrado este email');
+        $response = AuthService::login($request);
 
-        if(!Auth::attempt($request->all())) return ApiResponse::error('The email and password are invalid') ;
+        if(!$response) return ApiResponse::error('Email and password do no match');
 
-        return AuthService::login();
-
+         return ApiResponse::success($response);
+        
     }
 
     public function logout(Request $request) : JsonResponse {
