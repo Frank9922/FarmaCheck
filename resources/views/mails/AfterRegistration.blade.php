@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Gracias por registrarte, su periodo de prueba empieza ahora hasta el dia {{ $user->trial_ends_at }}</p>
+    <p>Gracias por registrarte, su periodo de prueba termina el dia : {{ $expiredDate }}</p>
 </body>
 </html>

@@ -19,13 +19,14 @@ class CheckTrialPeriod
     public function handle(Request $request, Closure $next): Response
     {
 
-
         $user = Auth::user();
+        
+        if($user && is_null($user->trial_ends_at)) return $next($request);
 
-        if($user && $user->trial_ends_at >= Carbon::now()) {
-
+        if(!Carbon::parse($user->trial_ends_at)->gte(Carbon::now())) {
             return ApiResponse::error('Su periodo de prueba a finalizado', []);
         }
+        
         return $next($request);
     }
 }
