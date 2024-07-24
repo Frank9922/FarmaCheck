@@ -26,7 +26,7 @@
 
         Route::middleware(['check.trial'])->group(function () {
             Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
-            Route::get('/google', [IaGoogleController::class, 'getText']);
+            // Route::get('/google', [IaGoogleController::class, 'getText']); Proximamente...
         });
         
 

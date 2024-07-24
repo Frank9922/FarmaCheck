@@ -43,9 +43,11 @@ class AuthController extends Controller
 
     public function create(RegisterRequest $request) : JsonResponse {
         
-        $user = AuthService::createUsuario($request);
+        $resp = AuthService::createUsuario($request);
 
-        return ApiResponse::success(['token' => $user['token'], 'usuario' => $user['user']], 'Successfully created', 201);
+        if(!$resp['error'] && !$resp['errorLogin']) return ApiResponse::success(['token' => $resp['token'], 'usuario' => $resp['user']], 'Successfully created', 201);
+
+        return ApiResponse::error($resp['error'], null);
 
     }
 }

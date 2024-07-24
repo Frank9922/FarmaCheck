@@ -5,6 +5,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Jobs\SendEmailRegistration;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,32 +30,41 @@ class AuthService {
 
     }
 
-    public static function createUsuario(RegisterRequest $request) : User {
+    public static function createUsuario(RegisterRequest $request) : array {
 
+        $response = ['errorLogin' => false, 'error' => false];
 
-    
-        $user = User::create([
+        $newUser = User::create([
             'name'  => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'trial_ends_at' => Carbon::now()->addDays(7),
+            'profile_picture' => 'https://ui-avatars.com/api/?name=' .$request->name. '?background='. fake()->hexColor(). ''
         ]);
 
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Accept' => 'image/svg+xml'
-        ])->get('https://ui-avatars.com/api/?name=John+Doe?background=random');
 
-        if($response->ok()) {
-            $avatar = $response->body();
-            $path = Storage::putFile('avatars', $avatar);
-            dd($path);
+
+        SendEmailRegistration::dispatch($newUser);
+
+        try{ 
+
+            if(!Auth::attempt($request->only('email', 'password'))) return $response['errorLogin'] = 'No pudo loguearse, intente de nuevo';
+
+            $user = Auth::user();
+
+            $token = $user->createToken('token')->plainTextToken;
+
+            $response['token'] = $token;
+            $response['user'] = $user;
+
+            return $response;
+
         }
 
-        SendEmailRegistration::dispatch($user);
-
-        return $user;
-         
+        catch(Exception $e) {
+            $response['error'] = 'No pudo loguearse, intente de nuevo';
+            return $response;
+        }         
     }
 
 
