@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+.vercelignore
+ngrok.exe
+vercel.json
+/api
+
+.vercel
