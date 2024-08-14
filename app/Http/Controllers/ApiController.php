@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ApiResource;
+use App\Http\Services\ApiResponse;
+use App\Http\Services\FarmaService;
 use App\Models\FarmacoCompatibilidad;
 use App\Models\Farmaco;
 
@@ -11,36 +13,18 @@ class ApiController extends Controller
 {
     public function farmacos() {
 
-        $farmacos = Farmaco::select('id', 'name')->get();
+        if(!$farmacos = FarmaService::getFarmacos()) return ApiResponse::error('Not found');
 
-        return response()->json([
-            'farmacos' => $farmacos
-        ], 200);
+        return ApiResponse::success(['farmacos' => $farmacos]);
 
     }
 
 
-
-
     public function check($farmaco1, $farmaco2) {
 
-        $resp = FarmacoCompatibilidad::where(function ( $query ) use ( $farmaco1) {
-                $query->where('first_farmaco', $farmaco1)
-                ->orWhere('second_farmaco', $farmaco1);
-        })
-        ->where( function ( $query ) use ( $farmaco2 ) {
-                $query->where('first_farmaco', $farmaco2)
-                ->orWhere('second_farmaco', $farmaco2);
-        })
-        ->with('compatibilidad')
-        ->with('firstFarmaco')
-        ->with('secondFarmaco')
-        ->first();
+        if(!$compatibilidad = FarmaService::check($farmaco1, $farmaco2)) return ApiResponse::error('Not Found');
 
-        return new ApiResource($resp);
+        return ApiResponse::success(['compatibilidad' => $compatibilidad]);
 
-
-        }
-
-
+    }
 }
