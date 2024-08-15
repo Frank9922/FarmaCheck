@@ -3,8 +3,8 @@
     use App\Http\Controllers\ApiController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\IaGoogleController;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Route;
+use App\Http\Services\ApiResponse;
+use Illuminate\Support\Facades\Route;
 
     /*
     |--------------------------------------------------------------------------
@@ -16,6 +16,13 @@
     | is assigned the "api" middleware group. Enjoy building your API!
     |
     */
+
+    Route::get('/test', function() {
+
+        return ApiResponse::success(['message' => 'Test successful']);
+        
+    });
+
     Route::post('/create', [AuthController::class, 'create']);
 
     Route::middleware(['auth:sanctum'])->group(function (){
