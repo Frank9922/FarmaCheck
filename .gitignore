@@ -22,3 +22,5 @@ ngrok.exe
 .vercelignore
 vercel.json
 .vercel
+
+.vercel
