@@ -17,9 +17,12 @@ class FarmacoSeeder extends Seeder
         $farmacos = require('./database/seeders/farmacos.php');
         
         foreach($farmacos as $farmaco){
-
+            $farmacoConFormato = ucwords(strtolower($farmaco));
             Farmaco::create(
-                ['name' => $farmaco]
+                ['name' => $farmaco,
+                'label'=>$farmacoConFormato,
+                ]
+
             );
         }
     }

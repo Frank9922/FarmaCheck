@@ -2,7 +2,8 @@
 
     use App\Http\Controllers\ApiController;
     use App\Http\Controllers\AuthController;
-    use App\Http\Controllers\IaGoogleController;
+use App\Http\Controllers\FarmaController;
+use App\Http\Controllers\IaGoogleController;
 use App\Http\Services\ApiResponse;
 use Illuminate\Support\Facades\Route;
 
@@ -41,5 +42,6 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/createFarma', [FarmaController::class,'store']);
 
 
