@@ -8,7 +8,7 @@ class FarmaService {
 
     public static function getFarmacos() {
 
-        $farmacos = Farmaco::select('id', 'name', 'label')->get();
+        $farmacos = Farmaco::select('id', 'name', 'label', 'accion_teraupetica')->get();
 
         return $farmacos;
     }

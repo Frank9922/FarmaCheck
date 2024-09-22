@@ -9,7 +9,7 @@ class Farmaco extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name','label'];
+    protected $fillable=['name','label', 'nombre_comercial', 'accion_teraupetica', 'via_administraciion', 'dosis', 'efectos', 'concentracion_max', 'concentracion_recomendada'];
 
     
 
