@@ -1,10 +1,10 @@
-    <?php
+<?php
 
-    use App\Http\Controllers\ApiController;
-    use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FarmaController;
-use App\Http\Controllers\IaGoogleController;
-use App\Http\Services\ApiResponse;
+use App\Http\Controllers\IaController;
+use App\Http\Services\ApiResponse;  
 use Illuminate\Support\Facades\Route;
 
     /*
@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
     });
 
     Route::post('/create', [AuthController::class, 'create']);
-
+    
     Route::middleware(['auth:sanctum'])->group(function (){
 
         Route::get('/user', [AuthController::class, 'user']);
@@ -34,7 +34,9 @@ use Illuminate\Support\Facades\Route;
 
         Route::middleware(['check.trial'])->group(function () {
             Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
-            // Route::get('/google', [IaGoogleController::class, 'getText']); Proximamente...
+            Route::post('/ia', [IaController::class, 'getText']);
+
+            
         });
         
 
