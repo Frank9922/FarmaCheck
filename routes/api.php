@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/user', [AuthController::class, 'user']);
         Route::get('/logout', [AuthController::class, 'logout']);
         Route::get('/farmacos', [ApiController::class, 'farmacos']);
+        Route::get('/farmaco/{name}', [ApiController::class, 'farmaco']);
 
         Route::middleware(['check.trial'])->group(function () {
             Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);

@@ -22,4 +22,10 @@ class ApiController extends Controller
         return ApiResponse::success(['compatibilidad' => $compatibilidad]);
 
     }
+    public function farmaco($name){
+        if(!$farmaco = FarmaService::getFarmaco($name)) return ApiResponse::error('Not Found');
+
+
+        return ApiResponse::success(['farmaco' => $farmaco]);
+    }
 }

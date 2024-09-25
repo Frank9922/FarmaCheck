@@ -33,6 +33,14 @@ class FarmaService {
         return $resp;
 
     }
+
+    public static function getFarmaco(string $name) {
+
+        $farmaco = Farmaco::where('name', $name)->first();
+        
+        if(!$farmaco) return null;
+        return $farmaco;
+    }
 }
 
 ?>
