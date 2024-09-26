@@ -6,12 +6,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Services\ApiResponse;
 use App\Http\Services\AuthService;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
-use function PHPUnit\Framework\isNull;
 
 class AuthController extends Controller
 {
@@ -45,7 +41,7 @@ class AuthController extends Controller
         
         $resp = AuthService::createUsuario($request);
 
-        if(!$resp['error'] && !$resp['errorLogin']) return ApiResponse::success(['token' => $resp['token'], 'usuario' => $resp['user']], 'Successfully created', 201);
+        if(!$resp['error'] && !$resp['errorLogin']) return ApiResponse::success(['token' => $resp['token'], 'user' => $resp['user']], 'Successfully created', 201);
 
         return ApiResponse::error($resp['error'], null);
 

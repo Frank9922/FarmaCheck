@@ -20,8 +20,5 @@ class DatabaseSeeder extends Seeder
         'password' => Hash::make('password')
     ]);
 
-        $this->call(FarmacoSeeder::class);
-        $this->call(CompatibilitySeeder::class);
-        // $this->call(CheckSeeder::class);
     }
 }
