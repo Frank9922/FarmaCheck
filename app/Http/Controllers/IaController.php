@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class IaController extends Controller
 {
-    public function getText(Request $request)  {
+    public function getText(string $farmaco1, string $farmaco2)  {
 
         $url = env('GROQ_API_URL');
 
@@ -17,7 +17,7 @@ class IaController extends Controller
             "messages" => [
                 [
                     "role" => "user",
-                    "content" => "Proporciona una respuesta concisa y objetiva sobre los riesgos y beneficios de combinar ". $request->input('farmaco_1') . " Y ". $request->input('farmaco_2')
+                    "content" => "Proporciona una respuesta concisa y objetiva sobre los riesgos y beneficios de combinar ". $farmaco1 . " Y ". $farmaco2 
                 ]
             ],
             "model" => env('GROQ_MODEL')
@@ -33,7 +33,7 @@ class IaController extends Controller
 
         $data = $response->json();
 
-        return ApiResponse::success(['text' => $data['choices'][0]['message']['content']]);
+        return ApiResponse::success(['text' => $data['choices'][0]['message']['content'], 'body' => 'La combinacion fue: '.$farmaco1. ' y '. $farmaco2]);
 
     }
 }

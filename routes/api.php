@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 
         Route::middleware(['check.trial'])->group(function () {
             Route::get('/comparar-farmacos/{farmaco1}/{farmaco2}', [ApiController::class, 'check']);
-            Route::post('/ia', [IaController::class, 'getText']);
+            Route::get('/ia/{farmaco1}/{farmaco2}', [IaController::class, 'getText']);
 
             
         });

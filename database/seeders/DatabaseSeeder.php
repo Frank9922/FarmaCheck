@@ -14,11 +14,14 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
+
     {   User::create([
         'name' => 'Franco Leiva',
         'email' => 'francoleiva990@gmail.com',
         'password' => Hash::make('password')
     ]);
+
+        
 
     }
 }
