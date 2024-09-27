@@ -5,7 +5,6 @@ namespace App\Mail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -29,7 +28,7 @@ class AfterRegistration extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'After Registration',
+            subject: '¡Bienvenido a FarmaCheck! Comienza tu periodo de prueba hoy',
         );
     }
 
@@ -44,7 +43,7 @@ class AfterRegistration extends Mailable
 
         return new Content(
             view: 'mails.AfterRegistration',
-            with:['expiredDate' => $formattedDate]
+            with:['expiredDate' => $formattedDate, 'name' => $this->user->name]
         );
     }
 
