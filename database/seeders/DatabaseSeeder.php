@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         'email' => 'francoleiva990@gmail.com',
         'password' => Hash::make('password')
     ]);
+    
+    $this->call(CompatibilitySeeder::class);
 
         
 
