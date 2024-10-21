@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Services\ApiResponse;
 use App\Http\Services\AuthService;
 use Illuminate\Http\JsonResponse;
@@ -30,6 +31,17 @@ class AuthController extends Controller
         
     }
 
+    public function loginAdmin(LoginRequest $request) : JsonResponse {
+
+
+        $response = AuthService::loginAdmin($request);
+
+        if(!$response) return ApiResponse::error('Email and password do no match');
+
+        return ApiResponse::success($response);
+
+    }
+
     public function logout(Request $request) : JsonResponse {
 
         return AuthService::logout($request);
@@ -46,4 +58,19 @@ class AuthController extends Controller
         return ApiResponse::error($resp['error'], null);
 
     }
+
+
+    public function sendReset(ResetPasswordRequest $request) : JsonResponse {
+
+        return AuthService::sendReset($request);
+
+    }
+
+    public function changePassword(Request $request, string $token) : JsonResponse
+    {
+        return AuthService::changePassword($request, $token);
+    }
+
+    
+
 }

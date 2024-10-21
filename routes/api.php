@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\Route;
     });
 
     Route::post('/create', [AuthController::class, 'create']);
+
+    Route::put('users/change-password/{token}', [AuthController::class, 'changePassword']);
+
+    Route::post('users/send-reset', [AuthController::class, 'sendReset']);
     
     Route::middleware(['auth:sanctum'])->group(function (){
 
@@ -45,6 +49,9 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/loginAdmin', [AuthController::class   , 'loginAdmin']);
+
+
     Route::post('/createFarma', [FarmaController::class,'store']);
 
 
