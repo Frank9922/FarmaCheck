@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Services\ApiResponse;
@@ -66,7 +67,7 @@ class AuthController extends Controller
 
     }
 
-    public function changePassword(Request $request, string $token) : JsonResponse
+    public function changePassword(ChangePasswordRequest $request, string $token) : JsonResponse
     {
         return AuthService::changePassword($request, $token);
     }
